@@ -183,7 +183,7 @@ class GoalServiceTest {
             Long goalId3 = goalService.save("목표3", "#111111", member.getId());
 
             // when
-            List<GoalResponse> response = goalService.findAllByMemberId(goalId1);
+            List<GoalResponse> response = goalService.findAllByMemberId(member.getId());
 
             // then
             assertThat(response)
