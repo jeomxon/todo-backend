@@ -4,21 +4,32 @@ import backend.likelion.todos.common.ForbiddenException;
 import backend.likelion.todos.goal.Goal;
 import backend.likelion.todos.member.Member;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.time.LocalDate;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-// TODO [10 단계] : 롬봉을 통해 기본 생성자를 PROTECTED 접근 제한자로 생성하세요.
-// TODO [10 단계] : Todo 객체를 Entity 로 정의하세요.
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Todo {
 
-    // TODO [10 단계] : id를 PK, Auto Increment로 설정하세요.
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String content;
     private LocalDate date;
 
     // TODO [10 단계] : todo 와 goal 과의 관계를 설정합니다. (join 하는 컬럼명은 goal_id로 설정합니다.), 지연 로딩을 사용합니다.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "goal_id")
     private Goal goal;
     private boolean isCompleted;
 
